@@ -1,12 +1,15 @@
+import java.awt.Color;
+
 import javax.swing.*;
 
 class Main {
     public static void main(String[] args) {
         
         JFrame frame = new JFrame();
-        frame.setTitle("Demo");
-        frame.setSize(450, 475);
-        frame.setLocation(120, 60);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setTitle("Fluid simulation");
+        frame.setLocation(1000, 450);
+        frame.setSize(450, 500);
         frame.setVisible(true);
 
     }
