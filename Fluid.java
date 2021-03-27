@@ -1,6 +1,8 @@
 class Fluid {
     
     private int N;
+    private int iter;
+
     private int size;
     private double dt;
     private double diff;
@@ -15,9 +17,11 @@ class Fluid {
     private double[] Vx0;
     private double[] Vy0;
 
-    public Fluid(int N, double dt, double diff, double visc) {
+    public Fluid(double dt, double diff, double visc) {
         
-        this.N = N;
+        this.N = 512;
+        this.iter = 10;
+
         this.size = N;
         this.dt = dt;
         this.diff = diff;
@@ -33,19 +37,14 @@ class Fluid {
         this.Vy0 = new double[N * N];
     
     }
-
-    private int IX(int x, int y) {
-        return x + y * this.N;
-    }
     
-
     private void addDensity(int x, int y, double amount) {
-        this.density[IX(x, y)] += amount;
+        this.density[Utils.IX(x, y, this.N)] += amount;
     }
 
     private void addVelocity(int x, int y, double amountX, double amountY)
     {
-        int index = IX(x, y);
+        int index = Utils.IX(x, y, this.N);
         
         this.Vx[index] += amountX;
         this.Vy[index] += amountY;
