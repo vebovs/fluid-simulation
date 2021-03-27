@@ -1,9 +1,9 @@
 import java.awt.*;
 import javax.swing.*;
 
-class Graphics {
+class Graphics extends JPanel {
 
-    public Graphics() {
+    public void paintComponent(Graphics g) {
         
     }
     
