@@ -1,8 +1,14 @@
 class Utils {
     
     static int IX(int x, int y, int N) {
-        return x + y * N;
+        x = constraint(x, 0, N-1);
+        y = constraint(y, 0, N-1);
+        return x + (y * N);
     }
+
+    static int constraint(int value, int min, int max) {
+        return Math.min(Math.max(value, min), max);
+     }
 
     static void diffuse(int b, double[] x, double[] x0, double diff, double dt, int iter, int N) {
         double a = dt * diff * (N - 2) * (N - 2);
