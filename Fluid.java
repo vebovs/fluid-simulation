@@ -1,25 +1,25 @@
 class Fluid {
     
-    private int N;
-    private int iter;
+    int N;
+    int iter;
 
-    private int size;
-    private double dt;
-    private double diff;
-    private double visc;
+    int size;
+    double dt;
+    double diff;
+    double visc;
 
-    private double[] s;
-    private double[] density;
+    double[] s;
+    double[] density;
 
-    private double[] Vx;
-    private double[] Vy;
+    double[] Vx;
+    double[] Vy;
 
-    private double[] Vx0;
-    private double[] Vy0;
+    double[] Vx0;
+    double[] Vy0;
 
-    public Fluid(double dt, double diff, double visc) {
+    public Fluid(double dt, double diff, double visc, int N) {
         
-        this.N = 512;
+        this.N = N;
         this.iter = 10;
 
         this.size = N;
@@ -40,6 +40,7 @@ class Fluid {
 
     public void Step() {
         int N = this.N;
+        int iter = this.iter;
 
         double visc = this.visc;
         double diff = this.diff;
@@ -54,29 +55,29 @@ class Fluid {
         double[] s = this.s;
         double[] density = this.density;
         
-        Utils.diffuse(1, Vx0, Vx, visc, dt, 4, N);
-        Utils.diffuse(2, Vy0, Vy, visc, dt, 4, N);
+        Utils.diffuse(1, Vx0, Vx, visc, dt, iter, N);
+        Utils.diffuse(2, Vy0, Vy, visc, dt, iter, N);
         
-        Utils.project(Vx0, Vy0, Vx, Vy, 4, N);
+        Utils.project(Vx0, Vy0, Vx, Vy, iter, N);
         
         Utils.advect(1, Vx, Vx0, Vx0, Vy0, dt, N);
         Utils.advect(2, Vy, Vy0, Vx0, Vy0, dt, N);
         
-        Utils.project(Vx, Vy, Vx0, Vy0, 4, N);
+        Utils.project(Vx, Vy, Vx0, Vy0, iter, N);
         
-        Utils.diffuse(0, s, density, diff, dt, 4, N);
+        Utils.diffuse(0, s, density, diff, dt, iter, N);
         Utils.advect(0, density, s, Vx, Vy, dt, N);
     }
     
-    private void addDensity(int x, int y, double amount) {
+    public void addDensity(int x, int y, double amount) {
         this.density[Utils.IX(x, y, this.N)] += amount;
     }
 
-    private void addVelocity(int x, int y, double amountX, double amountY)
-    {
+    public void addVelocity(int x, int y, double amountX, double amountY) {
         int index = Utils.IX(x, y, this.N);
         
         this.Vx[index] += amountX;
         this.Vy[index] += amountY;
     }
+
 }
