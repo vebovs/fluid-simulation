@@ -8,13 +8,14 @@ class Draw extends JPanel implements ActionListener {
     private Timer timer;
     private int N;
 
-    MouseHandler ml = new MouseHandler();
+    MouseHandler ml;
 
     public Draw(int N) {
         this.N = N;
         fluid = new Fluid(0.1, 0, 0.0000001, N);
         timer = new Timer(1, this);
         timer.start();
+        ml = new MouseHandler(this.N);
         this.addMouseMotionListener(ml);
 
     }
