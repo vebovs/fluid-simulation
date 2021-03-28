@@ -1,8 +1,8 @@
 class Utils {
     
     static int IX(int x, int y, int N) {
-        //x = constraint(x, 0, N-1);
-        //y = constraint(y, 0, N-1);
+        x = constraint(x, 0, N-1);
+        y = constraint(y, 0, N-1);
         return x + (y * N);
     }
 
