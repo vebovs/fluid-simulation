@@ -38,8 +38,8 @@ class Draw extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         double amount = Math.random() * (40000 - 4000 + 1) + 4000;
-        fluid.addDensity(this.N/2, 10, amount);
-        fluid.addVelocity(this.N/2, 10, 0, 50); 
+        fluid.addDensity(this.N/2, this.N/2, amount);
+        fluid.addVelocity(this.N/2, this.N/2, 50, 50); 
         repaint();
     }
      
