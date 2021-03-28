@@ -8,18 +8,14 @@ class Draw extends JPanel implements ActionListener {
     private Timer timer;
     private int N;
 
+    MouseHandler ml = new MouseHandler();
+
     public Draw(int N) {
         this.N = N;
         fluid = new Fluid(0.1, 0, 0.0000001, N);
         timer = new Timer(1, this);
         timer.start();
-
-        this.addMouseMotionListener(new MouseMotionAdapter() {
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                System.out.println("Hello world!");
-            }
-        });
+        this.addMouseMotionListener(ml);
 
     }
  
@@ -47,7 +43,7 @@ class Draw extends JPanel implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         double amount = Math.random() * (40000 - 4000 + 1) + 4000;
         fluid.addDensity(this.N/2, this.N/2, amount);
-        fluid.addVelocity(this.N/2, this.N/2, 50, 50); 
+        fluid.addVelocity(this.N/2, this.N/2, ml.getDirX(), ml.getDirY()); 
         repaint();
     }
      
