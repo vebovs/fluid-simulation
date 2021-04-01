@@ -8,17 +8,21 @@ class App extends JFrame {
     private int scale = 4;
 
     public App() {
+        
         this.setTitle("Fluid simulation");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setLocation(1000, 450);
-        draw = new Draw(this.size, this.scale);
-        draw.setPreferredSize(new Dimension(size, size));
-        this.add(draw);
-        this.pack();
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(screenSize.width/2 - this.size/2, screenSize.height/2 - this.size/2);
+        
     }
 
     public void Run() {
+        this.draw = new Draw(this.size, this.scale);
+        this.draw.setPreferredSize(new Dimension(this.size, this.size));
+        this.add(draw);
+        this.pack();
         this.setVisible(true);
     }
 }
