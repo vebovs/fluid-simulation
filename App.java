@@ -1,21 +1,28 @@
 import javax.swing.*;
+import java.awt.*;
 
 class App extends JFrame {
     
     private Draw draw;
-    private int N = 500;
+    private int size = 500;
+    private int scale = 4;
 
     public App() {
+        
+        this.setTitle("Fluid simulation");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setResizable(false);
-        this.setTitle("Fluid simulation");
-        this.setLocation(1000, 450);
-        this.setSize(N + 16, N + 39);
-        draw = new Draw(this.N);
-        this.add(draw);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(screenSize.width/2 - this.size/2, screenSize.height/2 - this.size/2);
+        
     }
 
     public void Run() {
+        this.draw = new Draw(this.size, this.scale);
+        this.draw.setPreferredSize(new Dimension(this.size, this.size));
+        this.add(draw);
+        this.pack();
         this.setVisible(true);
     }
 }
