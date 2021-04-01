@@ -7,10 +7,12 @@ class Draw extends JPanel implements ActionListener {
     private Fluid fluid;
     private Timer timer;
     private int N;
+    private int scale;
 
-    public Draw(int N) {
-        this.N = N;
-        fluid = new Fluid(0.1, 0, 0.0000001, N);
+    public Draw(int size, int scale) {
+        this.N = size;
+        this.scale = scale;
+        fluid = new Fluid(0.1, 0, 0.0000001, this.N/this.scale);
         timer = new Timer(1, this);
         timer.start();
     }
@@ -23,13 +25,13 @@ class Draw extends JPanel implements ActionListener {
 
         fluid.Step();
 
-        for(int i = 0; i < this.N; i++) {
-            for(int j = 0; j < this.N; j++) {
-                int density = (int) fluid.density[Utils.IX(i, j, this.N)];
+        for(int i = 0; i < this.N/this.scale; i++) {
+            for(int j = 0; j < this.N/this.scale; j++) {
+                int density = (int) fluid.density[Utils.IX(i, j, this.N/this.scale)];
                 density = Utils.constraint(density, 0, 255);
                 Color color = new Color(100, 100, 100, density);
                 g2d.setColor(color);
-                g2d.drawLine(i, j, i, j);
+                g2d.fillRect(i * this.scale, j * this.scale, this.scale, this.scale);
             }
         }
 
@@ -38,8 +40,8 @@ class Draw extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         double amount = Math.random() * (40000 - 4000 + 1) + 4000;
-        fluid.addDensity(this.N/2, this.N/2, amount);
-        fluid.addVelocity(this.N/2, this.N/2, 50, 50); 
+        fluid.addDensity((this.N/this.scale)/2, (this.N/this.scale)/2, amount);
+        fluid.addVelocity((this.N/this.scale)/2, (this.N/this.scale)/2, 0, 50); 
         repaint();
     }
      
