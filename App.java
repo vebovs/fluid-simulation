@@ -5,7 +5,7 @@ class App extends JFrame {
     
     private Draw draw;
     private int size = 500;
-    private int scale = 4;
+    private int scale = 2;
 
     public App() {
         
